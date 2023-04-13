@@ -5,6 +5,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class JdbcTruckDao implements TruckDao{
 
@@ -56,6 +59,43 @@ public class JdbcTruckDao implements TruckDao{
 
         //Step 5 - return results
         return truck;
+    }
+
+    public List<Truck> getTrucks() {
+
+        //Step 1 - Create our return type
+        List<Truck> trucks = new ArrayList<>();
+
+        //Step 2 - write our sql
+        String sql = "SELECT truck_id, active, accepted_payment, cuisine_id, restaurant_link, phone, current_location \n" +
+                "FROM trucks;";
+
+        //Step 3 - send the sql to our database
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+
+        //Step 4 - convert results
+        while(results.next()) {
+            Truck truck = convertRowToTruck(results);
+            trucks.add(truck);
+        }
+
+        //Step 5 - return results
+        return trucks;
+    }
+
+    @Override
+    public void updateTruck(Truck truck) {
+        String sql = "UPDATE trucks\n" +
+                "SET active=?,\n" +
+                "    accepted_payment = ?,\n" +
+                "\tcuisine_id = ?,\n" +
+                "\trestaurant_link = ?,\n" +
+                "\tphone = ?,\n" +
+                "\tcurrent_location = ?\n" +
+                "WHERE truck_id = ?;\n";
+
+        jdbcTemplate.update(sql, truck.isActive(), truck.getAcceptedPayment(), truck.getCuisineId(),
+                truck.getRestaurantLink(), truck.getPhone(), truck.getCurrentLocation(), truck.getTruckId());
     }
 
     private Truck convertRowToTruck(SqlRowSet results){
