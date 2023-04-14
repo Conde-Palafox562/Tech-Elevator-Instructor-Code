@@ -2,6 +2,10 @@
   <div>
       <form v-on:submit.prevent="createTruck()">
           <div>
+              <label> Truck Name </label>
+              <input type='text' v-model="truck.truckName" />
+          </div>
+          <div>
               <label> Active </label>
               <input type='checkbox' v-model="truck.active" />
           </div>
@@ -37,7 +41,8 @@ export default {
                acceptedPayment: "",
                restaurantLink: "",
                phone: "",
-               currentLocation: "" 
+               currentLocation: "",
+               truckName: "" 
             }
         }
     },
@@ -46,6 +51,7 @@ export default {
             TruckService.createTruck(this.truck).then(
                 (response) => {
                     alert("Success! New id is " + response.data.truckId);
+                    this.$router.push({name: "truck-details", params: {id: response.data.truckId}})
                 }
             )
         }

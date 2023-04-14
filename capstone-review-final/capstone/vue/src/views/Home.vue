@@ -1,18 +1,27 @@
 <template>
   <div class="home">
     <h1>Home</h1>
-    <p>You must be authenticated to see this</p>
-    <create-truck />
+    <router-link v-bind:to="{name: 'trucks'}"> See All Trucks</router-link>
+    <br/>
+    <router-link v-bind:to="{name: 'new-truck'}">
+      <img src="../img/NewTruck.png" />
+    </router-link>
   </div>
 </template>
 
 <script>
-import CreateTruck from '../components/CreateTruck.vue';
+
 
 export default {
   name: "home",
   components: {
-    CreateTruck
+   
   }
 };
 </script>
+
+<style scoped>
+img {
+  width: 120px;
+}
+</style>

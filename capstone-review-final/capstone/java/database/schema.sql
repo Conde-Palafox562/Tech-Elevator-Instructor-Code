@@ -1,15 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS events;
-DROP TABLE IF EXISTS locations;
-DROP TABLE IF EXISTS menu_item_cuisine;
-DROP TABLE IF EXISTS cuisine;
-DROP TABLE IF EXISTS order_menu_item;
-DROP TABLE IF EXISTS menu_items;
-DROP TABLE IF EXISTS submenu;
-DROP TABLE IF EXISTS menu;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS user_food_truck_favorites;
+ 
 DROP TABLE IF EXISTS trucks;
 DROP TABLE IF EXISTS users;
 
@@ -23,6 +14,7 @@ CREATE TABLE users (
 
 CREATE TABLE trucks(
 	truck_id SERIAL PRIMARY KEY,
+	truck_name varchar(50),
 	active boolean,
 	accepted_payment varchar(25),
 	cuisine_id int,

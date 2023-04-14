@@ -9,6 +9,15 @@ public class Truck {
     private String restaurantLink;
     private String phone;
     private String currentLocation;
+    private String truckName;
+
+    public String getTruckName() {
+        return truckName;
+    }
+
+    public void setTruckName(String truckName) {
+        this.truckName = truckName;
+    }
 
     public int getTruckId() {
         return truckId;

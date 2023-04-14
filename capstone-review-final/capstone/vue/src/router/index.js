@@ -5,6 +5,14 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import CreateTruck from '../views/CreateTruck.vue'
+import ListOfTrucks from "../views/ListOfTrucks.vue"
+import Order from "../views/Order.vue"
+import Profile from "../views/Profile.vue"
+import ViewTruck from "../views/ViewTruck.vue"
+import AddMenu from '../views/AddMenu.vue'
+import AddSubMenu from '../views/AddSubMenu.vue'
+import AddMenuItem from '../views/AddMenuItem.vue'
 
 Vue.use(Router)
 
@@ -51,6 +59,70 @@ const router = new Router({
       component: Register,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path: "/trucks",
+      name: "trucks",
+      component: ListOfTrucks,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/trucks/:id",
+      name: "truck-details",
+      component: ViewTruck,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/new-truck",
+      name: "new-truck",
+      component: CreateTruck,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: Profile,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/order",
+      name: "order",
+      component: Order,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/trucks/:truckId/menu",
+      name: "create-menu",
+      component: AddMenu,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/trucks/:truckId/menu/:menuId",
+      name: "create-submenu",
+      component: AddSubMenu,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/trucks/:truckId/menu/:menuId/submenu/:subMenuId",
+      name: "create-menuitem",
+      component: AddMenuItem,
+      meta: {
+        requiresAuth: true
       }
     }
   ]

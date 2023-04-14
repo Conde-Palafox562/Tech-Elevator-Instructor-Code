@@ -25,12 +25,12 @@ public class JdbcTruckDao implements TruckDao{
         Truck newTruck = null;
 
         //Step 2 - Create our sql
-        String sql = "INSERT INTO trucks(active, accepted_payment, cuisine_id, restaurant_link, phone, current_location)\n" +
-                "VALUES(?, ?, ?, ?, ?, ?) RETURNING truck_id;";
+        String sql = "INSERT INTO trucks(active, accepted_payment, cuisine_id, restaurant_link, phone, current_location, truck_name)\n" +
+                "VALUES(?, ?, ?, ?, ?, ?, ?) RETURNING truck_id;";
 
         //Step 3 - Send our sql to the database
         int truckId = jdbcTemplate.queryForObject(sql, int.class, truck.isActive(), truck.getAcceptedPayment(), truck.getCuisineId(),
-                truck.getRestaurantLink(), truck.getPhone(), truck.getCurrentLocation());
+                truck.getRestaurantLink(), truck.getPhone(), truck.getCurrentLocation(), truck.getTruckName());
 
         //Step 4 - do any conversions with our results if necessary
         newTruck = getTruck(truckId);
@@ -45,7 +45,7 @@ public class JdbcTruckDao implements TruckDao{
         Truck truck = null;
 
         //Step 2 - write our sql
-        String sql = "SELECT truck_id, active, accepted_payment, cuisine_id, restaurant_link, phone, current_location \n" +
+        String sql = "SELECT truck_id, active, accepted_payment, cuisine_id, restaurant_link, phone, current_location, truck_name \n" +
                 "FROM trucks\n" +
                 "WHERE truck_id = ?;";
 
@@ -67,7 +67,7 @@ public class JdbcTruckDao implements TruckDao{
         List<Truck> trucks = new ArrayList<>();
 
         //Step 2 - write our sql
-        String sql = "SELECT truck_id, active, accepted_payment, cuisine_id, restaurant_link, phone, current_location \n" +
+        String sql = "SELECT truck_id, active, accepted_payment, cuisine_id, restaurant_link, phone, current_location, truck_name \n" +
                 "FROM trucks;";
 
         //Step 3 - send the sql to our database
@@ -107,6 +107,7 @@ public class JdbcTruckDao implements TruckDao{
         truck.setRestaurantLink(results.getString("restaurant_link"));
         truck.setPhone( results.getString("phone"));
         truck.setCurrentLocation( results.getString("current_location"));
+        truck.setTruckName(results.getString("truck_name"));
 
         return truck;
     }
